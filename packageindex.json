@@ -1,0 +1,8 @@
+{
+  "Name": "AvalonStudio.Langages.CSharp",
+  "Description": "Provides support for C# .NET Core",
+  "RepoUrl": "http://github.com/VitalElement/AvalonStudio.Languages.CSharp.git",
+  "Tags": [
+    "Win32-Slow-Preview-3"
+  ]
+}
