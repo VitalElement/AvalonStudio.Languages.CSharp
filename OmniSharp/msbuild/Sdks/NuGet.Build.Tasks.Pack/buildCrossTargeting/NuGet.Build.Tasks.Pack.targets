@@ -1,0 +1,292 @@
+﻿<!--
+***********************************************************************************************
+NuGet.targets
+
+WARNING:  DO NOT MODIFY this file unless you are knowledgeable about MSBuild and have
+          created a backup copy.  Incorrect changes to this file will make it
+          impossible to load or build your projects from the command-line or the IDE.
+
+Copyright (c) .NET Foundation. All rights reserved. 
+***********************************************************************************************
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Load NuGet.Build.Tasks.Pack.dll, this can be overridden to use a different version with $(NugetTaskAssemblyFile) -->
+  <PropertyGroup Condition="$(NugetTaskAssemblyFile) == ''">
+    <NugetTaskAssemblyFile Condition="'$(MSBuildRuntimeType)' == 'Core'">..\CoreCLR\NuGet.Build.Tasks.Pack.dll</NugetTaskAssemblyFile>
+    <NugetTaskAssemblyFile Condition="'$(MSBuildRuntimeType)' != 'Core'">..\Desktop\NuGet.Build.Tasks.Pack.dll</NugetTaskAssemblyFile>
+  </PropertyGroup>
+  <UsingTask TaskName="NuGet.Build.Tasks.Pack.PackTask" AssemblyFile="$(NugetTaskAssemblyFile)" />
+  <UsingTask TaskName="NuGet.Build.Tasks.Pack.PackNuspecTask" AssemblyFile="$(NugetTaskAssemblyFile)" />
+
+  <PropertyGroup>
+    <PackageId Condition=" '$(PackageId)' == '' ">$(AssemblyName)</PackageId>
+    <PackageVersion Condition=" '$(PackageVersion)' == '' ">$(Version)</PackageVersion>
+    <IncludeContentInPack Condition="'$(IncludeContentInPack)'==''">true</IncludeContentInPack>
+    <GenerateNuspecDependsOn>_LoadPackInputItems; _WalkEachTargetPerFramework; _GetPackageFiles</GenerateNuspecDependsOn>
+    <Description Condition="'$(Description)'==''">Package Description</Description>
+    <IsPackable Condition="'$(IsPackable)'==''">true</IsPackable>
+    <IncludeBuildOutput Condition="'$(IncludeBuildOutput)'==''">true</IncludeBuildOutput>
+    <BuildOutputTargetFolder Condition="'$(BuildOutputTargetFolder)' == '' AND '$(IsTool)' == 'true'">tools</BuildOutputTargetFolder>
+    <BuildOutputTargetFolder Condition="'$(BuildOutputTargetFolder)' == ''">lib</BuildOutputTargetFolder>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(NoBuild)' == 'true' ">
+    <GenerateNuspecDependsOn>$(GenerateNuspecDependsOn)</GenerateNuspecDependsOn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(NoBuild)' != 'true' ">
+    <GenerateNuspecDependsOn>Build;$(GenerateNuspecDependsOn)</GenerateNuspecDependsOn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(NuspecFile)' == ''">
+    <PackDependsOn>GenerateNuspec</PackDependsOn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(NuspecFile)' != ''">
+    <PackDependsOn>PackUsingNuspec</PackDependsOn>
+  </PropertyGroup>
+  <ItemGroup>
+    <_TargetFrameworks Condition="'$(TargetFramework)' == ''" Include="$(TargetFrameworks.Split(';'))"/>
+    <_TargetFrameworks Condition="'$(TargetFramework)' != ''" Include="$(TargetFramework)"/>
+  </ItemGroup>
+
+  <!--
+    ============================================================
+    Pack
+    Main entry point for packing packages
+    ============================================================
+  -->
+  <Target Name="Pack" DependsOnTargets="_IntermediatePack;$(PackDependsOn)">
+  </Target>
+  <Target Name="_IntermediatePack">
+    <PropertyGroup>
+      <ContinuePackingAfterGeneratingNuspec>true</ContinuePackingAfterGeneratingNuspec>
+    </PropertyGroup>
+  </Target>
+  <Target Name="PackUsingNuspec">
+    <PackNuspecTask NuspecFile ="$(NuspecFile)"/>
+  </Target>
+  <Target Name="GenerateNuspec" DependsOnTargets="$(GenerateNuspecDependsOn)" Condition="$(IsPackable) == 'true'">
+    <PropertyGroup Condition="$(ContinuePackingAfterGeneratingNuspec) == '' ">
+      <ContinuePackingAfterGeneratingNuspec>false</ContinuePackingAfterGeneratingNuspec>
+    </PropertyGroup>
+    <PropertyGroup>
+      <PackageOutputPath Condition=" '$(PackageOutputPath)' == '' ">$(OutputPath)</PackageOutputPath>
+    </PropertyGroup>
+    <!-- Call Pack -->
+    <PackTask PackItem="$(PackProjectInputFile)"
+              PackageFiles="@(_PackageFiles)"
+              PackageFilesToExclude="@(_PackageFilesToExclude)"
+              PackageVersion="$(PackageVersion)"
+              PackageId="$(PackageId)"
+              Authors="$(Authors)"
+              Description="$(Description)"
+              Copyright="$(Copyright)"
+              RequireLicenseAcceptance="$(PackageRequireLicenseAcceptance)"
+              LicenseUrl="$(PackageLicenseUrl)"
+              ProjectUrl="$(PackageProjectUrl)"
+              IconUrl="$(PackageIconUrl)"
+              ReleaseNotes="$(PackageReleaseNotes)"
+              Tags="$(PackageTags)"
+              Configuration="$(Configuration)"
+              TargetPathsToAssemblies="@(_TargetPathsToAssemblies->'%(FinalOutputPath)')"
+              TargetPathsToSymbols="@(_TargetPathsToSymbols)"
+              TargetFrameworks="@(_TargetFrameworks)"
+              AssemblyName="$(AssemblyName)"
+              ProjectReferences="@(_ProjectReferences)"
+              PackageOutputPath="$(PackageOutputPath)"
+              IncludeSymbols="$(IncludeSymbols)"
+              IncludeSource="$(IncludeSource)"
+              PackageTypes="$(PackageType)"
+              IsTool="$(IsTool)"
+              RepositoryUrl="$(RepositoryUrl)"
+              RepositoryType="$(RepositoryType)"
+              SourceFiles="@(_SourceFiles)"
+              NoPackageAnalysis="$(NoPackageAnalysis)"
+              MinClientVersion="$(MinClientVersion)"
+              Serviceable="$(Serviceable)"
+              VersionSuffix ="$(VersionSuffix)"
+              AssemblyReferences="@(_References)"
+              PackageReferences="@(_PackageReferences)"
+              ContinuePackingAfterGeneratingNuspec="$(ContinuePackingAfterGeneratingNuspec)"
+              NuspecOutputPath="$(BaseIntermediateOutputPath)"
+              IncludeBuildOutput="$(IncludeBuildOutput)"
+              BuildOutputFolder="$(BuildOutputTargetFolder)"/>
+  </Target>
+  <!--
+    ============================================================
+    _LoadPackGraphEntryPoints
+    Find project entry points and load them into items.
+    ============================================================
+  -->
+  <Target Name="_LoadPackInputItems">
+    <!-- Allow overriding items with ProjectFileToPack -->
+    <PropertyGroup Condition="'$(PackProjectInputFile)' == ''">
+      <PackProjectInputFile>$(ProjectFileToPack)</PackProjectInputFile>
+    </PropertyGroup>
+
+    <!-- Project case -->
+    <PropertyGroup Condition="$(MSBuildProjectFullPath.EndsWith('.csproj')) == 'true' AND '$(PackProjectInputFile)' == ''">
+      <PackProjectInputFile>$(MSBuildProjectFullPath)</PackProjectInputFile>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="_WalkEachTargetPerFramework">
+    <MSBuild
+      Projects="$(MSBuildProjectFullPath)"
+      Targets="_GetProjectToProjectReferences"
+      Properties="TargetFramework=%(_TargetFrameworks.Identity);
+                  BuildProjectReferences=false;">
+
+      <Output
+          TaskParameter="TargetOutputs"
+          ItemName="_ProjectReferences" />
+    </MSBuild>
+
+    <MSBuild
+      Condition="'$(IncludeBuildOutput)' == 'true'"
+      Projects="$(MSBuildProjectFullPath)"
+      Targets="BuiltProjectOutputGroup;DocumentationProjectOutputGroup"
+      Properties="TargetFramework=%(_TargetFrameworks.Identity);
+                  BuildProjectReferences=false;">
+
+      <Output
+          TaskParameter="TargetOutputs"
+          ItemName="_TargetPathsToAssemblies" />
+    </MSBuild>
+
+    <MSBuild
+      Condition="'$(IncludeSymbols)' == 'true' OR '$(IncludeSource)' == 'true'"
+      Projects="$(MSBuildProjectFullPath)"
+      Targets="DebugSymbolsProjectOutputGroup"
+      Properties="TargetFramework=%(_TargetFrameworks.Identity);
+                  BuildProjectReferences=false;">
+
+      <Output
+          TaskParameter="TargetOutputs"
+          ItemName="_TargetPathsToSymbols" />
+    </MSBuild>
+
+    <MSBuild
+      Condition="'$(IncludeSource)' == 'true'"
+      Projects="$(MSBuildProjectFullPath)"
+      Targets="SourceFilesProjectOutputGroup"
+      Properties="TargetFramework=%(_TargetFrameworks.Identity);
+                  BuildProjectReferences=false;">
+
+      <Output
+          TaskParameter="TargetOutputs"
+          ItemName="_SourceFiles" />
+    </MSBuild>
+
+    <MSBuild
+      Projects="$(MSBuildProjectFullPath)"
+      Targets="_GetPackageReferences"
+      Properties="TargetFramework=%(_TargetFrameworks.Identity);
+                  BuildProjectReferences=false;">
+
+      <Output
+          TaskParameter="TargetOutputs"
+          ItemName="_PackageReferences" />
+    </MSBuild>
+  </Target>
+
+  <!--
+    ============================================================
+    _GetProjectMetadata
+    Collects metadata for pack from child projects to be used in
+    the generated .nuspec of the parent project.
+    ============================================================
+  -->
+  <Target Name="_GetProjectMetadata"
+          Returns="@(_ProjectReferences)">
+    <ItemGroup>
+      <_ProjectReferences Include="$(MSBuildProjectFullPath)">
+        <PackageId>$(PackageId)</PackageId>
+        <PackageVersion>$(PackageVersion)</PackageVersion>
+      </_ProjectReferences>
+    </ItemGroup>
+  </Target>
+
+  <!--
+    ============================================================
+    _GetProjectToProjectReferences
+    Entry point for generating the project to project references.
+    ============================================================
+  -->
+  <Target Name="_GetProjectToProjectReferences"
+      Condition="'$(TargetFramework)' != ''"
+      DependsOnTargets="ResolveProjectReferences"
+      Returns="@(_ProjectReferences)">
+
+    <ItemGroup>
+      <!-- Filter out project references that specify ReferenceOutputAssembly=false -->
+      <ValidProjectInputForPackGraph Include="@(ProjectReference)"
+          Condition=" ('%(ProjectReference.ReferenceOutputAssembly)' == '' OR '%(ProjectReference.ReferenceOutputAssembly)' == 'true')" />
+    </ItemGroup>
+
+    <MSBuild
+      Projects="@(ValidProjectInputForPackGraph)"
+      Targets="_GetProjectMetadata"
+      Properties="CustomAfterMicrosoftCommonTargets=$(MSBuildThisFileFullPath);
+                  CustomAfterMicrosoftCommonCrossTargetingTargets=$(MSBuildThisFileFullPath);
+                  BuildProjectReferences=false">
+
+      <Output
+          TaskParameter="TargetOutputs"
+          ItemName="_ProjectReferencesWithoutParentData" />
+    </MSBuild>
+
+    <ItemGroup>
+      <_ProjectReferences Include="@(_ProjectReferencesWithoutParentData)">
+        <TargetFramework>$(TargetFramework)</TargetFramework>
+        <Type>Package</Type>
+      </_ProjectReferences>
+      <_ProjectReferences Condition="'%(_ProjectReferences.IncludeAssets)' == ''">
+        <IncludeAssets>all</IncludeAssets>
+      </_ProjectReferences>
+      <_ProjectReferences Condition="'%(_ProjectReferences.ExcludeAssets)' == ''">
+        <ExcludeAssets>none</ExcludeAssets>
+      </_ProjectReferences>
+      <_ProjectReferences Condition="'%(_ProjectReferences.PrivateAssets)' == ''">
+        <PrivateAssets>build;contentFiles;analyzers</PrivateAssets>
+      </_ProjectReferences>
+    </ItemGroup>
+  </Target>
+
+  <!--
+    ============================================================
+    _GetPackageFiles
+    Entry point for generating the project to project references.
+    ============================================================
+  -->
+  <Target Name="_GetPackageFiles" Condition="$(IncludeContentInPack) == 'true'">
+    <ItemGroup>
+      <_PackageFilesToExclude Include="@(Content)" Condition="'%(Content.Pack)' == 'false'"/>
+    </ItemGroup>
+    <!-- Include PackageFiles and Content of the project being packed -->
+    <ItemGroup>
+      <_PackageFiles Include="@(Content)" Condition=" %(Content.Pack) != 'false' " />
+      <_PackageFiles Include="@(Compile)" Condition=" %(Compile.Pack) == 'true' " />
+      <_PackageFiles Include="@(None)" Condition=" %(None.Pack) == 'true' " />
+    </ItemGroup>
+  </Target>
+
+  <!--
+    ============================================================
+    _GetPackageReferences
+    Entry point for getting the package references for a project and it's references
+    ============================================================
+  -->
+  <Target Name="_GetPackageReferences"
+      Condition="$(TargetFramework) != ''"
+      Returns="@(_PackageReferences)">
+
+    <!-- Project to project entry -->
+    <ItemGroup>
+      <_PackageReferences Include="%(PackageReference.Identity)">
+        <TargetFramework>$(TargetFramework)</TargetFramework>
+        <IncludeAssets>%(PackageReference.IncludeAssets)</IncludeAssets>
+        <ExcludeAssets>%(PackageReference.ExcludeAssets)</ExcludeAssets>
+        <PrivateAssets>%(PackageReference.PrivateAssets)</PrivateAssets>
+        <Version>%(PackageReference.Version)</Version>
+      </_PackageReferences>
+    </ItemGroup>
+  </Target>
+</Project>
