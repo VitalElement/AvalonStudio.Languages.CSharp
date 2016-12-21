@@ -1,0 +1,27 @@
+﻿<!--
+***********************************************************************************************
+Microsoft.NET.Sdk.Web.ProjectSystem.props
+
+WARNING:  DO NOT MODIFY this file unless you are knowledgeable about MSBuild and have
+          created a backup copy.  Incorrect changes to this file will make it
+          impossible to load or build your projects from the command-line or the IDE.
+
+Copyright (c) .NET Foundation. All rights reserved. 
+***********************************************************************************************
+-->
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <GlobalExclude>$(GlobalExclude);bin\**;obj\**;node_modules\**;jspm_packages\**;bower_components\**;**\*.user;**\*.*proj;**\*.sln;**\*.vssscc;**\.*\**</GlobalExclude>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(OverrideWebDefaultGlobs)' != 'True' ">
+    <Content Include="**\*" Exclude="$(GlobalExclude);**\*.cs;**\*.resx;Properties\**" Condition=" '$(OverrideWebDefaultContentGlob)' != 'True' " />
+    <Content Update="wwwroot\**;**\*.json;**\*.config;**\*.cshtml" CopyToPublishDirectory="PreserveNewest" Condition=" '$(OverrideWebDefaultContentGlob)' != 'True' AND '$(OverrideWebDefaultPublishGlob)' != 'True' " />
+    <Content Include="Properties\**" Exclude="$(GlobalExclude);**\*.cs;**\*.resx" Condition=" '$(OverrideWebDefaultContentGlob)' != 'True' " />
+    <Compile Include="**\*.cs" Exclude="$(GlobalExclude);wwwroot\**" Condition=" '$(OverrideWebDefaultCompileGlob)' != 'True' " />
+    <EmbeddedResource Include="**\*.resx" Exclude="$(GlobalExclude);wwwroot\**" Condition=" '$(OverrideWebDefaultEmbeddedResourceGlob)' != 'True' " />
+  </ItemGroup>
+
+</Project>
+
