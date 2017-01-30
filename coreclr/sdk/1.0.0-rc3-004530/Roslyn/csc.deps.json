@@ -1,0 +1,421 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v1.0",
+    "signature": "2c5ae2541435abd6b0f486865c2674916016aeed"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v1.0": {
+      "tool_roslyn/1.0.0-rc3-004530": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.Build.Tasks": "2.0.0-rc3-61212-03",
+          "Microsoft.CodeAnalysis.CSharp": "2.0.0-rc3-61212-03",
+          "Microsoft.DiaSymReader.Native": "1.4.0-rc2",
+          "Microsoft.Net.Compilers.netcore": "2.0.0-rc3-61212-03"
+        },
+        "runtime": {
+          "tool_roslyn.dll": {}
+        }
+      },
+      "microsoft.build/14.3.0": {
+        "dependencies": {
+          "Microsoft.Build.Framework": "14.3.0",
+          "System.Xml.XmlDocument": "4.0.1"
+        }
+      },
+      "microsoft.build.framework/14.3.0": {},
+      "microsoft.build.tasks.core/14.3.0": {
+        "dependencies": {
+          "Microsoft.Build.Framework": "14.3.0",
+          "Microsoft.Build.Utilities.Core": "14.3.0",
+          "System.Xml.XmlDocument": "4.0.1"
+        }
+      },
+      "microsoft.build.utilities.core/14.3.0": {
+        "dependencies": {
+          "Microsoft.Build.Framework": "14.3.0",
+          "System.Collections.Specialized": "4.0.1"
+        }
+      },
+      "microsoft.codeanalysis.analyzers/1.1.0": {},
+      "microsoft.codeanalysis.build.tasks/2.0.0-rc3-61212-03": {
+        "dependencies": {
+          "Microsoft.Build": "14.3.0",
+          "Microsoft.Build.Tasks.Core": "14.3.0",
+          "Microsoft.CodeAnalysis.CSharp": "2.0.0-rc3-61212-03",
+          "System.IO.FileSystem.DriveInfo": "4.0.0",
+          "System.IO.Pipes": "4.0.0",
+          "System.Security.AccessControl": "4.0.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.Build.Tasks.CodeAnalysis.dll": {}
+        }
+      },
+      "microsoft.codeanalysis.common/2.0.0-rc3-61212-03": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.Analyzers": "1.1.0",
+          "System.Diagnostics.FileVersionInfo": "4.0.0",
+          "System.Diagnostics.StackTrace": "4.0.1",
+          "System.Reflection.Metadata": "1.4.1-beta-24430-01",
+          "System.Text.Encoding.CodePages": "4.0.1",
+          "System.ValueTuple": "4.0.1-beta-24425-02",
+          "System.Xml.XPath.XDocument": "4.0.1",
+          "System.Xml.XmlDocument": "4.0.1"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.CodeAnalysis.dll": {}
+        }
+      },
+      "microsoft.codeanalysis.compilers/2.0.0-rc3-61212-03": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.CSharp": "2.0.0-rc3-61212-03",
+          "Microsoft.CodeAnalysis.VisualBasic": "2.0.0-rc3-61212-03"
+        }
+      },
+      "microsoft.codeanalysis.csharp/2.0.0-rc3-61212-03": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.Common": "2.0.0-rc3-61212-03"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.CodeAnalysis.CSharp.dll": {}
+        }
+      },
+      "microsoft.codeanalysis.visualbasic/2.0.0-rc3-61212-03": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.Common": "2.0.0-rc3-61212-03"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.CodeAnalysis.VisualBasic.dll": {}
+        }
+      },
+      "microsoft.diasymreader.native/1.4.0-rc2": {
+        "runtimeTargets": {
+          "runtimes/win-x64/native/Microsoft.DiaSymReader.Native.amd64.dll": {
+            "rid": "win-x64",
+            "assetType": "native"
+          },
+          "runtimes/win-x86/native/Microsoft.DiaSymReader.Native.x86.dll": {
+            "rid": "win-x86",
+            "assetType": "native"
+          },
+          "runtimes/win/native/Microsoft.DiaSymReader.Native.amd64.dll": {
+            "rid": "win",
+            "assetType": "native"
+          },
+          "runtimes/win/native/Microsoft.DiaSymReader.Native.arm.dll": {
+            "rid": "win",
+            "assetType": "native"
+          },
+          "runtimes/win/native/Microsoft.DiaSymReader.Native.x86.dll": {
+            "rid": "win",
+            "assetType": "native"
+          },
+          "runtimes/win8-arm/native/Microsoft.DiaSymReader.Native.arm.dll": {
+            "rid": "win8-arm",
+            "assetType": "native"
+          }
+        }
+      },
+      "microsoft.net.compilers.netcore/2.0.0-rc3-61212-03": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.Compilers": "2.0.0-rc3-61212-03"
+        },
+        "runtimeTargets": {}
+      },
+      "system.collections.nongeneric/4.0.1": {
+        "runtime": {
+          "lib/netstandard1.3/System.Collections.NonGeneric.dll": {}
+        }
+      },
+      "system.collections.specialized/4.0.1": {
+        "dependencies": {
+          "System.Collections.NonGeneric": "4.0.1"
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Collections.Specialized.dll": {}
+        }
+      },
+      "system.diagnostics.fileversioninfo/4.0.0": {
+        "dependencies": {
+          "System.Reflection.Metadata": "1.4.1-beta-24430-01"
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netstandard1.3/System.Diagnostics.FileVersionInfo.dll": {
+            "rid": "unix",
+            "assetType": "runtime"
+          },
+          "runtimes/win/lib/netstandard1.3/System.Diagnostics.FileVersionInfo.dll": {
+            "rid": "win",
+            "assetType": "runtime"
+          }
+        }
+      },
+      "system.diagnostics.stacktrace/4.0.1": {
+        "dependencies": {
+          "System.Reflection.Metadata": "1.4.1-beta-24430-01"
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Diagnostics.StackTrace.dll": {}
+        }
+      },
+      "system.io.filesystem.driveinfo/4.0.0": {
+        "runtimeTargets": {
+          "runtimes/unix/lib/netstandard1.3/System.IO.FileSystem.DriveInfo.dll": {
+            "rid": "unix",
+            "assetType": "runtime"
+          },
+          "runtimes/win/lib/netstandard1.3/System.IO.FileSystem.DriveInfo.dll": {
+            "rid": "win",
+            "assetType": "runtime"
+          }
+        }
+      },
+      "system.io.pipes/4.0.0": {
+        "runtimeTargets": {
+          "runtimes/unix/lib/netstandard1.3/System.IO.Pipes.dll": {
+            "rid": "unix",
+            "assetType": "runtime"
+          },
+          "runtimes/win/lib/netstandard1.3/System.IO.Pipes.dll": {
+            "rid": "win",
+            "assetType": "runtime"
+          }
+        }
+      },
+      "system.reflection.metadata/1.4.1-beta-24430-01": {
+        "runtime": {
+          "lib/netstandard1.1/System.Reflection.Metadata.dll": {}
+        }
+      },
+      "system.security.accesscontrol/4.0.0": {
+        "runtimeTargets": {
+          "runtimes/unix/lib/netstandard1.3/System.Security.AccessControl.dll": {
+            "rid": "unix",
+            "assetType": "runtime"
+          },
+          "runtimes/win/lib/netstandard1.3/System.Security.AccessControl.dll": {
+            "rid": "win",
+            "assetType": "runtime"
+          }
+        }
+      },
+      "system.text.encoding.codepages/4.0.1": {
+        "runtimeTargets": {
+          "runtimes/unix/lib/netstandard1.3/System.Text.Encoding.CodePages.dll": {
+            "rid": "unix",
+            "assetType": "runtime"
+          },
+          "runtimes/win/lib/netstandard1.3/System.Text.Encoding.CodePages.dll": {
+            "rid": "win",
+            "assetType": "runtime"
+          }
+        }
+      },
+      "system.valuetuple/4.0.1-beta-24425-02": {
+        "runtime": {
+          "lib/netstandard1.0/System.ValueTuple.dll": {}
+        }
+      },
+      "system.xml.xmldocument/4.0.1": {
+        "runtime": {
+          "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
+        }
+      },
+      "system.xml.xpath/4.0.1": {
+        "runtime": {
+          "lib/netstandard1.3/System.Xml.XPath.dll": {}
+        }
+      },
+      "system.xml.xpath.xdocument/4.0.1": {
+        "dependencies": {
+          "System.Xml.XPath": "4.0.1"
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "tool_roslyn/1.0.0-rc3-004530": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "microsoft.build/14.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-URmqFVnJ0MviA6hoHRTotHKxsWJCqpgqOh9gcUg40siGRHI8gOefCwe0IExD1WgQUj8EPXT/5vL5D+e9nk7xlg==",
+      "path": "microsoft.build/14.3.0",
+      "hashPath": "microsoft.build.14.3.0.nupkg.sha512"
+    },
+    "microsoft.build.framework/14.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GX3MdQMQ3YVx/jWerzd5vDW/VrcLxf80Ts4T9AVEUsrmL6wZK1YTGNX3jLapll+5Y7PBDbvf5R815A64hlEQ+g==",
+      "path": "microsoft.build.framework/14.3.0",
+      "hashPath": "microsoft.build.framework.14.3.0.nupkg.sha512"
+    },
+    "microsoft.build.tasks.core/14.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/h8PEha1FPAsGf6SPYP+vqTD34tuPvdeLIq+a4gKCNqwGnb66LOi3m8CQiAvumyTCrx9dli8HEE2s2EnoVJ9AA==",
+      "path": "microsoft.build.tasks.core/14.3.0",
+      "hashPath": "microsoft.build.tasks.core.14.3.0.nupkg.sha512"
+    },
+    "microsoft.build.utilities.core/14.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wGluB/diyYl0iZLjiJzWJTmK0RgOgzmzb19fRBgAyORe/N6Z1zwJHK/cLJcAsuvzbanrXsf3NuGlmbc5lOvTag==",
+      "path": "microsoft.build.utilities.core/14.3.0",
+      "hashPath": "microsoft.build.utilities.core.14.3.0.nupkg.sha512"
+    },
+    "microsoft.codeanalysis.analyzers/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HS3iRWZKcUw/8eZ/08GXKY2Bn7xNzQPzf8gRPHGSowX7u7XXu9i9YEaBeBNKUXWfI7qjvT2zXtLUvbN0hds8vg==",
+      "path": "microsoft.codeanalysis.analyzers/1.1.0",
+      "hashPath": "microsoft.codeanalysis.analyzers.1.1.0.nupkg.sha512"
+    },
+    "microsoft.codeanalysis.build.tasks/2.0.0-rc3-61212-03": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-50oVK/T+lx4mRHuh2+/okvk4A+eSvhGbC9YDk9/+NLLvo0AiBF4LDkZCR8j0eeT7PLZCoy7dj2fk1D7wVAhxXw==",
+      "path": "microsoft.codeanalysis.build.tasks/2.0.0-rc3-61212-03",
+      "hashPath": "microsoft.codeanalysis.build.tasks.2.0.0-rc3-61212-03.nupkg.sha512"
+    },
+    "microsoft.codeanalysis.common/2.0.0-rc3-61212-03": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-H9HoTO/1zI8G3Kt5agE41cBSn3qriIr7TqPequ3DpwT19/FIE3UqTwmYbrNtYC1aVMBvQ4PRnnWATcKkMG0ksg==",
+      "path": "microsoft.codeanalysis.common/2.0.0-rc3-61212-03",
+      "hashPath": "microsoft.codeanalysis.common.2.0.0-rc3-61212-03.nupkg.sha512"
+    },
+    "microsoft.codeanalysis.compilers/2.0.0-rc3-61212-03": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6EbJ4ltxao3It/TKWlryYq1RaGs2/vd1kXQTGUgDSTv319OGf4/AzVGCaKqgqBIM2ppK4k75T1zoWEO3WWoLlg==",
+      "path": "microsoft.codeanalysis.compilers/2.0.0-rc3-61212-03",
+      "hashPath": "microsoft.codeanalysis.compilers.2.0.0-rc3-61212-03.nupkg.sha512"
+    },
+    "microsoft.codeanalysis.csharp/2.0.0-rc3-61212-03": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1Ih2PDrYm8j40EkbvUfC0vmbbi2ksZHnbIxldrgYoUdGDJZqIqTJK3wLNK8AnWcavOshOk2cI3BW6BvKdkOLqQ==",
+      "path": "microsoft.codeanalysis.csharp/2.0.0-rc3-61212-03",
+      "hashPath": "microsoft.codeanalysis.csharp.2.0.0-rc3-61212-03.nupkg.sha512"
+    },
+    "microsoft.codeanalysis.visualbasic/2.0.0-rc3-61212-03": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0zJNSxsKh/qfFIqiuiua/cWebC6TEr1DCk+pWFbh/1wxewRCA2YXRXgzluH0HV+usmLHLbRT/Pm6vucbOplYFw==",
+      "path": "microsoft.codeanalysis.visualbasic/2.0.0-rc3-61212-03",
+      "hashPath": "microsoft.codeanalysis.visualbasic.2.0.0-rc3-61212-03.nupkg.sha512"
+    },
+    "microsoft.diasymreader.native/1.4.0-rc2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KIQOG+U6btTHL5KkXYofMpyCzVx+6EcDPS9GBRGGhlrTjJqcqAM6a6a0D0Dur/HPnAdmGLtSHVjCDZijGJFCAA==",
+      "path": "microsoft.diasymreader.native/1.4.0-rc2",
+      "hashPath": "microsoft.diasymreader.native.1.4.0-rc2.nupkg.sha512"
+    },
+    "microsoft.net.compilers.netcore/2.0.0-rc3-61212-03": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zfkvc+d/qbQI0cr4LOjb7pIIp0OE4wiJ39YtxqMx0wQTcLTowFCxy+IZBoH3YjDcb3ug3iPCEbB4/SkIq+A7PA==",
+      "path": "microsoft.net.compilers.netcore/2.0.0-rc3-61212-03",
+      "hashPath": "microsoft.net.compilers.netcore.2.0.0-rc3-61212-03.nupkg.sha512"
+    },
+    "system.collections.nongeneric/4.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hMxFT2RhhlffyCdKLDXjx8WEC5JfCvNozAZxCablAuFRH74SCV4AgzE8yJCh/73bFnEoZgJ9MJmkjQ0dJmnKqA==",
+      "path": "system.collections.nongeneric/4.0.1",
+      "hashPath": "system.collections.nongeneric.4.0.1.nupkg.sha512"
+    },
+    "system.collections.specialized/4.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/HKQyVP0yH1I0YtK7KJL/28snxHNH/bi+0lgk/+MbURF6ULhAE31MDI+NZDerNWu264YbxklXCCygISgm+HMug==",
+      "path": "system.collections.specialized/4.0.1",
+      "hashPath": "system.collections.specialized.4.0.1.nupkg.sha512"
+    },
+    "system.diagnostics.fileversioninfo/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qjF74OTAU+mRhLaL4YSfiWy3vj6T3AOz8AW37l5zCwfbBfj0k7E94XnEsRaf2TnhE/7QaV6Hvqakoy2LoV8MVg==",
+      "path": "system.diagnostics.fileversioninfo/4.0.0",
+      "hashPath": "system.diagnostics.fileversioninfo.4.0.0.nupkg.sha512"
+    },
+    "system.diagnostics.stacktrace/4.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6i2EbRq0lgGfiZ+FDf0gVaw9qeEU+7IS2+wbZJmFVpvVzVOgZEt0ScZtyenuBvs6iDYbGiF51bMAa0oDP/tujQ==",
+      "path": "system.diagnostics.stacktrace/4.0.1",
+      "hashPath": "system.diagnostics.stacktrace.4.0.1.nupkg.sha512"
+    },
+    "system.io.filesystem.driveinfo/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JmD0gwi/iEaENOUH6Ad7z7mLqdK7CWb6I/5lWmM8gz6EpTh8mEIgiMY1/F1qQI+fFkodMUcqS69xZqKDSVj1zQ==",
+      "path": "system.io.filesystem.driveinfo/4.0.0",
+      "hashPath": "system.io.filesystem.driveinfo.4.0.0.nupkg.sha512"
+    },
+    "system.io.pipes/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-L9QVhk8hIEix5KNA0kW58Ha+Y1dNGqqqIhAaJkhcGCWeQzUmN0njzI7SG/XAazpMecboOdFFlH3pH/qbwXLJAg==",
+      "path": "system.io.pipes/4.0.0",
+      "hashPath": "system.io.pipes.4.0.0.nupkg.sha512"
+    },
+    "system.reflection.metadata/1.4.1-beta-24430-01": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bMVrRyvZhXnoo+MYWz58mj81RK0zjbNKCMnJDw+oNfs89kJiwPHmHcqC8Jz5X3HS4tbC/iqRTaRrS4UENnda3Q==",
+      "path": "system.reflection.metadata/1.4.1-beta-24430-01",
+      "hashPath": "system.reflection.metadata.1.4.1-beta-24430-01.nupkg.sha512"
+    },
+    "system.security.accesscontrol/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xsTykIpBOWK9q3XLrnvE7WoWtCQ4DKvGliAJ13uzsN8qIwMuYMEuSNXxdJsygYA+AM3dVJUjDbgPwZgOvp1gGQ==",
+      "path": "system.security.accesscontrol/4.0.0",
+      "hashPath": "system.security.accesscontrol.4.0.0.nupkg.sha512"
+    },
+    "system.text.encoding.codepages/4.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-h4z6rrA/hxWf4655D18IIZ0eaLRa3tQC/j+e26W+VinIHY0l07iEXaAvO0YSYq3MvCjMYy8Zs5AdC1sxNQOB7Q==",
+      "path": "system.text.encoding.codepages/4.0.1",
+      "hashPath": "system.text.encoding.codepages.4.0.1.nupkg.sha512"
+    },
+    "system.valuetuple/4.0.1-beta-24425-02": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LDJ8d1zT0fMYLBIX+WANJ5kUWikKP8g2lVnYMnSKwiWIMrpuBRLuU2tLym93zaAyl6733L98ZFiYU3m8EvY1cQ==",
+      "path": "system.valuetuple/4.0.1-beta-24425-02",
+      "hashPath": "system.valuetuple.4.0.1-beta-24425-02.nupkg.sha512"
+    },
+    "system.xml.xmldocument/4.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2eZu6IP+etFVBBFUFzw2w6J21DqIN5eL9Y8r8JfJWUmV28Z5P0SNU01oCisVHQgHsDhHPnmq2s1hJrJCFZWloQ==",
+      "path": "system.xml.xmldocument/4.0.1",
+      "hashPath": "system.xml.xmldocument.4.0.1.nupkg.sha512"
+    },
+    "system.xml.xpath/4.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UWd1H+1IJ9Wlq5nognZ/XJdyj8qPE4XufBUkAW59ijsCPjZkZe0MUzKKJFBr+ZWBe5Wq1u1d5f2CYgE93uH7DA==",
+      "path": "system.xml.xpath/4.0.1",
+      "hashPath": "system.xml.xpath.4.0.1.nupkg.sha512"
+    },
+    "system.xml.xpath.xdocument/4.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FLhdYJx4331oGovQypQ8JIw2kEmNzCsjVOVYY/16kZTUoquZG85oVn7yUhBE2OZt1yGPSXAL0HTEfzjlbNpM7Q==",
+      "path": "system.xml.xpath.xdocument/4.0.1",
+      "hashPath": "system.xml.xpath.xdocument.4.0.1.nupkg.sha512"
+    }
+  }
+}
