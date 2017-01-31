@@ -12,15 +12,29 @@ Copyright (c) .NET Foundation. All rights reserved.
 
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <GlobalExclude>$(GlobalExclude);bin\**;obj\**;node_modules\**;jspm_packages\**;bower_components\**;**\*.user;**\*.*proj;**\*.sln;**\*.vssscc;**\.*\**</GlobalExclude>
+    <DefaultItemExcludes>$(DefaultItemExcludes);node_modules/**</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);jspm_packages/**</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);bower_components/**</DefaultItemExcludes>
+
+    <OutputType>Exe</OutputType>
+    <PreserveCompilationContext Condition="'$(PreserveCompilationContext)' == ''">True</PreserveCompilationContext>
   </PropertyGroup>
 
-  <ItemGroup Condition=" '$(OverrideWebDefaultGlobs)' != 'True' ">
-    <Content Include="**\*" Exclude="$(GlobalExclude);**\*.cs;**\*.resx;Properties\**" Condition=" '$(OverrideWebDefaultContentGlob)' != 'True' " />
-    <Content Update="wwwroot\**;**\*.json;**\*.config;**\*.cshtml" CopyToPublishDirectory="PreserveNewest" Condition=" '$(OverrideWebDefaultContentGlob)' != 'True' AND '$(OverrideWebDefaultPublishGlob)' != 'True' " />
-    <Content Include="Properties\**" Exclude="$(GlobalExclude);**\*.cs;**\*.resx" Condition=" '$(OverrideWebDefaultContentGlob)' != 'True' " />
-    <Compile Include="**\*.cs" Exclude="$(GlobalExclude);wwwroot\**" Condition=" '$(OverrideWebDefaultCompileGlob)' != 'True' " />
-    <EmbeddedResource Include="**\*.resx" Exclude="$(GlobalExclude);wwwroot\**" Condition=" '$(OverrideWebDefaultEmbeddedResourceGlob)' != 'True' " />
+  <ItemGroup Condition=" '$(EnableDefaultItems)' == 'true' And '$(EnableDefaultContentItems)' == 'true' ">
+    <!-- Publish everything under wwwroot, all JSON files, all web.config files and all Razor files -->
+    <Content Include="wwwroot/**" CopyToPublishDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+    <Content Include="**/web.config" CopyToPublishDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);wwwroot/**" />
+    <Content Include="**/*.cshtml" CopyToPublishDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);wwwroot/**" />
+    <Content Include="**/*.json" CopyToPublishDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);wwwroot/**" />
+
+    <!-- Set CopyToPublishDirectory to Never for items under AppDesignerFolder ("Properties", by default) to avoid publishing launchSettings.json -->
+    <Content Update="$(AppDesignerFolder)/**" CopyToPublishDirectory="Never" Condition="'$(AppDesignerFolder)' != ''"/>
+    
+    <!-- Remove Content items from other item types (in a way that CPS understands) -->
+    <None Remove="wwwroot/**;**/*.json;**/web.config;**/*.cshtml" />
+    <Compile Remove="wwwroot/**" />
+    <EmbeddedResource Remove="wwwroot/**" />
+
   </ItemGroup>
 
 </Project>

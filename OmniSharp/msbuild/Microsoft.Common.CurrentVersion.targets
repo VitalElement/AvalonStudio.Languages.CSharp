@@ -323,6 +323,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     <AutoUnifyAssemblyReferences Condition="'$(GenerateBindingRedirectsOutputType)' == 'true' and '$(AutoGenerateBindingRedirects)' != 'true'">false</AutoUnifyAssemblyReferences>
   </PropertyGroup>
   <PropertyGroup>
+    <BaseIntermediateOutputPath Condition="!HasTrailingSlash('$(BaseIntermediateOutputPath)')">$(BaseIntermediateOutputPath)\</BaseIntermediateOutputPath>
     <CleanFile Condition="'$(CleanFile)'==''">$(MSBuildProjectFile).FileListAbsolute.txt</CleanFile>
     <!-- During DesignTime Builds, skip project reference build as Design time is only queueing information.-->
     <BuildProjectReferences Condition="'$(BuildProjectReferences)' == '' and '$(DesignTimeBuild)' == 'true'">false</BuildProjectReferences>
@@ -4216,6 +4217,35 @@ Copyright (C) Microsoft Corporation. All rights reserved.
       <AllItemsFullPathWithTargetPath            Include="@(_SourceItemsToCopyToOutputDirectoryAlways->'%(FullPath)');@(_SourceItemsToCopyToOutputDirectory->'%(FullPath)')"/>
     </ItemGroup>
 
+  </Target>
+
+  <!--
+    ============================================================
+                                        GetCopyToPublishDirectoryItems
+
+    Default implementation of GetCopyToPublishDirectoryItems for projects that do not 
+    use Microsoft.NET.Sdk. It simply returns whatever GetCopyToOutputDirectoryItems 
+    does with CopyToPublishDirectory implied  by CopyToOutputDirectory, which is the 
+    same as Microsoft.NET.Sdk default when its CopyToPublishDirectory is not used. 
+
+    Microsoft.NET.Sdk projects  will override this to allow the publish output to be
+    customized independently from the build output.
+
+    Having a default implementation here allows the Microsoft.NET.Sdk Publish target
+    to work when a Microsoft.NET.Sdk-based project references a non-Microsoft.NET.Sdk-based
+    project.
+    ============================================================
+    -->
+    <Target
+      Name="GetCopyToPublishDirectoryItems" 
+      DependsOnTargets="GetCopyToOutputDirectoryItems"
+      Returns="@(AllPublishItemsFullPathWithTargetPath)">
+
+    <ItemGroup>
+      <AllPublishItemsFullPathWithTargetPath Include="@(AllItemsFullPathWithTargetPath)">
+        <CopyToPublishDirectory>%(CopyToOutputDirectory)</CopyToPublishDirectory>
+      </AllPublishItemsFullPathWithTargetPath>
+    </ItemGroup>
   </Target>
 
   <!--
